@@ -18,6 +18,7 @@ module Sequence_Counter(
     
 endmodule
 
+
 module D_Flip_Flop(
     input D,
     input CLK,
