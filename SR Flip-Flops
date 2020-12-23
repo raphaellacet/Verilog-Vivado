@@ -1,0 +1,47 @@
+`timescale 1ns / 1ps
+module sr_1(
+    input S,
+    input R,
+    output reg Q,
+    output Qb
+    );
+    
+    always@(S or R)
+    begin
+        if(S==0 & R==0)
+            Q<=Q;
+        else if(S==0 & R==1)
+            Q<=1'b0;
+        else if(S==1 & R==0)
+            Q<=1'b1;
+        else if(S==1 & R==1)
+            Q<=1'bx;
+    end
+    
+    assign Qb=~Q;
+endmodule
+
+`timescale 1ns / 1ps
+module sr_sim();
+
+    reg s_t;
+    reg r_t;
+    wire q_t;
+    wire qb_t;
+    
+    sr_1 sr11(
+    .S(s_t),
+    .R(r_t),
+    .Q(q_t),
+    .Qb(qb_t)
+    );
+    
+    initial
+    begin
+        s_t=1'b0;
+        r_t=1'b0;
+    end
+    
+    always #10 s_t=~s_t;
+    always #20 r_t=~r_t;
+endmodule
